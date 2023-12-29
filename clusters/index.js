@@ -2,6 +2,10 @@
  * mqtt broker cluster with aedes.
  *  - 關掉mq, persistence.
  * 
+ * TODO: add logging in aedes
+ *  - https://www.npmjs.com/package/aedes-logging
+ * 
+ * 
  * Reference:
  *  - https://github.com/moscajs/aedes/tree/main/examples/clusters
  */
