@@ -12,6 +12,10 @@
   "license": "ISC",
   "dependencies": {
     "aedes": "^0.50.1",
+    "aedes-persistence-mongodb": "^9.1.1",
+    "aedes-persistence-redis": "^10.0.0",
+    "mqemitter-mongodb": "^8.1.0",
+    "mqemitter-redis": "^5.0.0",
     "mqtt": "^4.3.8"
   }
 }
