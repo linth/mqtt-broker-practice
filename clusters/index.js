@@ -5,6 +5,9 @@
  * TODO: add logging in aedes
  *  - https://www.npmjs.com/package/aedes-logging
  * 
+ * TODO: add aedes-stats
+ *  - https://www.npmjs.com/aedes-stats
+ * 
  * 
  * Reference:
  *  - https://github.com/moscajs/aedes/tree/main/examples/clusters
