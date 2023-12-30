@@ -18,7 +18,7 @@ const Aedes = require('aedes')
 const { createServer } = require('net')
 const { cpus } = require('os')
 // const MONGO_URL = 'mongodb://127.0.0.1/aedes-clusters'
-const winston = require("winston");
+const logger = require('./color')
 
 // const mq = process.env.MQ === 'redis'
 //   ? require('mqemitter-redis')({
@@ -35,26 +35,6 @@ const winston = require("winston");
 //   : require('aedes-persistence-mongodb')({
 //     // url: MONGO_URL
 //   })
-
-// set up custom format.
-const custom_format = winston.format.printf(({ level, message, timestamp}) => {
-  return `[${timestamp}] ${level}: ${message}`;
-});
-
-// set up color.
-const custom_color = winston.format.combine(
-  winston.format.colorize(),
-  custom_format,
-)
-
-const logger = winston.createLogger({
-  level: 'debug',
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    custom_color,
-  ),
-  transports: [new winston.transports.Console()],
-});
 
 logger.error("Error message");
 logger.warn("Warning message");
