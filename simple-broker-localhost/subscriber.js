@@ -31,3 +31,7 @@ client.on('close', () => {
   console.log('Connection closed.');
 });
 
+// 當發生錯誤時候觸發
+client.on('error', () => {
+  console.error('Error:', error);
+});
