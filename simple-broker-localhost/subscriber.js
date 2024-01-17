@@ -25,3 +25,9 @@ client.on('message', (topic, message) => {
   console.log(`Received message on topic '${topic}': ${message.toString()}`);
   client.end();
 });
+
+// 當連結斷開時候觸發
+client.on('close', () => {
+  console.log('Connection closed.');
+});
+
