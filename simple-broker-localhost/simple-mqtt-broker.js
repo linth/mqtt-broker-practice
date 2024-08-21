@@ -2,7 +2,6 @@ const aedes = require('aedes')()
 const server = require('net').createServer(aedes.handle)
 const port = 1883
 
-
 function authenticate(client, username, password, callback) {
   /**
    * 
@@ -13,7 +12,6 @@ function authenticate(client, username, password, callback) {
    *  - error <Error> | null
    *  - successful <boolean>
    */
-  
   if (username === 'george' && password.toString() === '123') {
     callback(null, true);
   } else {
@@ -108,5 +106,59 @@ aedes.authorizeSubscribe = authorizeSubscribe;
 // aedes.published = published;
 
 server.listen(port, () => {
-  console.log('server started and listening on port ', port)
-})
+  console.log('server started and listening on port ', port);  
+});
+
+
+// access the broker ID
+console.log(`aedes broker ID: ${aedes.id}`);
+
+// Listen for new client connections (連線)
+aedes.on('client', function (client) {
+  console.log(`Client connected: ${client.id}`);
+  console.log(`Connected Clients: ${aedes.connectedClients}`);
+});
+
+// Listen for client disconnect events (斷線)
+aedes.on('clientDisconnect', function (client) {
+  console.log(`Client disconnected: ${client.id}`);
+  console.log(`Connected Clients: ${aedes.connectedClients}`);
+});
+
+// Handle messages (publish資料)
+aedes.on('publish', function (packet, client) {
+  if (client) {
+    console.log(`Message from ${client.id}: ${packet.payload.toString()}`);
+  }
+});
+
+// Handle disconnection errors (連線錯誤)
+aedes.on('connectionError', (client, error) => {
+  console.error(`Connection error from ${client.id}: ${error.message}`);  
+});
+
+// Handle keep-alive timeout
+aedes.on('keepaliveTimeout', function (client) {
+  console.log(`Client ${client.id} has exceeded keep-alive timeout.`);
+  // Optionally disconnect the client
+  client.close();
+});
+
+// Handle message acknowledgment (QoS 1 or 2)
+aedes.on('ack', function (packet, client) {
+  if (client) {
+    console.log(`Message acknowledged by client ${client.id}: ${packet.messageId}`);
+  }
+});
+
+// Handle ping requests (keep-alive mechanism)
+aedes.on('ping', function (client) {
+  console.log(`Ping received from client ${client.id}`);
+});
+
+// Handle subscription events
+aedes.on('subscribe', function (subscriptions, client) {
+  if (client) {
+    console.log(`Client ${client.id} subscribed to topics: ${subscriptions.map(sub => sub.topic).join(', ')}`);
+  }
+});
